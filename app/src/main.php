@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fastway;
 
 use Fastway\Core\Model\Environment;
+use Fastway\ParcelTracking\Controller\ParcelTrackingController;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use League\Route\Router;
@@ -32,6 +33,7 @@ function main(Environment $environment): void
 
         case Environment::DEV:
 
+            $router->map('POST', '/parcel-tracking', ParcelTrackingController::class);
             break;
 
         default:
