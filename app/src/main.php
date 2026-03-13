@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fastway;
 
 use Fastway\Core\Model\Environment;
+use Fastway\Dashboard\Controller\DashboardController;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use League\Route\Router;
@@ -31,7 +32,7 @@ function main(Environment $environment): void
             break;
 
         case Environment::DEV:
-
+            $router->map('GET', '/', DashboardController::class);
             break;
 
         default:
