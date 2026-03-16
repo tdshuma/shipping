@@ -10,3 +10,6 @@ spl_autoload_register(function (string $className) {
         require_once $file;
     }
 });
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
