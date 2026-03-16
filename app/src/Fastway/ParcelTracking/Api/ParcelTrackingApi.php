@@ -13,7 +13,7 @@ class ParcelTrackingApi extends BaseClient
     function getParcelDetails(ParcelTrackingRequest $request): array
     {
         try {
-            $results = $this->httpGet(
+            $results = $this->httpPost(
                 $this->baseUrl . '/latest/tracktrace/massdetail/' . $request->parcelNumber
             );
             $body = (array)json_decode($results->getBody()->getContents());

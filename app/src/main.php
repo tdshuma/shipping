@@ -34,7 +34,6 @@ function main(Environment $environment): void
 
         case Environment::DEV:
             $router->map('GET', '/', DashboardController::class);
-
             $router->map('POST', '/parcel-tracking', ParcelTrackingController::class);
             break;
 

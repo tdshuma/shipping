@@ -26,7 +26,7 @@ class BaseClient
         ]);
     }
 
-    public function httpPost(string $url, ?array $body): ResponseInterface
+    public function httpPost(string $url, ?array $body = []): ResponseInterface
     {
         return $this->client->post($url, [
             'query' => [

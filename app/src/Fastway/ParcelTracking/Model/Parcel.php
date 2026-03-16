@@ -79,7 +79,7 @@ final class Parcel
             'DeliveryETADate' => $this->deliveryETADate,
             'TSSDeliveryDays' => $this->tSSDeliveryDays,
             'LabelNumber' => $this->labelNumber,
-            'Scans' => $this->scans,
+            'Scans' => array_map(fn($item) => $item->toJson(), $this->scans ?: []),
             'Signature' => $this->signature,
             'DistributedTo' => $this->distributedTo,
             'DistributedDate' => $this->distributedDate,
