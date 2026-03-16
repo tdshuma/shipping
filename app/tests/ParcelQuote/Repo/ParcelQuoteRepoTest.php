@@ -15,16 +15,16 @@ final class ParcelQuoteRepoTest extends TestCase
     {
         $response = file_get_contents(__DIR__ . '/../../mocks/parcel_quote.json');
         $data = (array)json_decode($response);
-        $dataResponse = ParcelQuote::fromJson((array)$data['result'][1]);
+        $dataResponse = ParcelQuote::fromJson((array)$data['result']);
         $api = $this->createStub(ParcelQuoteApi::class);
         $dao = $this->createStub(ParcelQuoteDao::class);
 
         $api
             ->method('getParcelQuote')
-            ->willReturn([$dataResponse]);
+            ->willReturn($dataResponse);
         $dao
             ->method('getParcelQuote')
-            ->willReturn([$dataResponse]);
+            ->willReturn($dataResponse);
 
         $repo = new ParcelQuoteRepo(
             $api,
@@ -39,10 +39,10 @@ final class ParcelQuoteRepoTest extends TestCase
             );
             $this->assertSame(
                 $dataResponse->pickfranchise,
-                $results[0]->pickfranchise
+                $results->pickfranchise
             );
         } catch (\Throwable $th) {
-            var_dump($th);
+            echo $th->getMessage();
         }
     }
 }

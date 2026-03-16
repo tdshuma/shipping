@@ -6,6 +6,7 @@ namespace Fastway;
 
 use Fastway\Core\Model\Environment;
 use Fastway\Dashboard\Controller\DashboardController;
+use Fastway\ParcelQuote\Controller\ParcelQuoteController;
 use Fastway\ParcelTracking\Controller\ParcelTrackingController;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
@@ -35,6 +36,7 @@ function main(Environment $environment): void
         case Environment::DEV:
             $router->map('GET', '/', DashboardController::class);
             $router->map('POST', '/parcel-tracking', ParcelTrackingController::class);
+            $router->map('POST', '/parcel-quote', ParcelQuoteController::class);
             break;
 
         default:

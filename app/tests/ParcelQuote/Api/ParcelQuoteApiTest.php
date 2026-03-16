@@ -34,11 +34,11 @@ final class ParcelQuoteApiTest extends TestCase
             );
             $data = (array)json_decode($response);
             $this->assertSame(
-                ParcelQuote::fromJson((array)$data['result'][1])->pickfranchise,
-                $results[1]->pickfranchise
+                ParcelQuote::fromJson((array)$data['result'])->pickfranchise,
+                $results->pickfranchise
             );
         } catch (\Throwable $th) {
-            var_dump($th);
+            print($th);
         }
     }
 }
