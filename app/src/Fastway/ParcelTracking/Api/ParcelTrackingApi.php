@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Fastway\ParcelTracking\Api;
 
 use Fastway\Core\Api\BaseClient;
-use Fastway\ParcelTracking\Model\ParcelTracking;
+use Fastway\ParcelTracking\Model\Parcel;
 use Fastway\ParcelTracking\Model\ParcelTrackingRequest;
 
-final class ParcelTrackingApi extends BaseClient
+class ParcelTrackingApi extends BaseClient
 {
-    function getParcelDetails(ParcelTrackingRequest $request): ParcelTracking
+    function getParcelDetails(ParcelTrackingRequest $request): array
     {
         try {
             $results = $this->httpGet(
                 $this->baseUrl . '/latest/tracktrace/massdetail/' . $request->parcelNumber
             );
-            $body = $results->getBody()->getContents();
-            return new ParcelTracking('good');
-        } catch (\Exception $error) {
+            $body = (array)json_decode($results->getBody()->getContents());
+            return array_map(fn($item) => Parcel::fromJson((array)$item), (array)$body['result']);
+        } catch (\Throwable $error) {
             throw $error;
         }
     }

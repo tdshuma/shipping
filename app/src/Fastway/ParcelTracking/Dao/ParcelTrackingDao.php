@@ -5,16 +5,31 @@ declare(strict_types=1);
 namespace Fastway\ParcelTracking\Dao;
 
 use Fastway\Core\Dao\BaseDao;
-use Fastway\ParcelTracking\Model\ParcelTracking;
-use Fastway\ParcelTracking\Model\ParcelTrackingRequest;
+use Fastway\ParcelTracking\Model\Parcel;
 
-final class ParcelTrackingDao extends BaseDao
+class ParcelTrackingDao extends BaseDao
 {
-    function getParcelDetails(ParcelTrackingRequest $request): ParcelTracking
+    private $key = 'ParcelTrackingDao.getParcelDetails';
+
+    function getParcelDetails(): array
     {
         try {
-            throw('');
-        } catch (\Exception $error) {
+            $results = $this->getData($this->key);
+            return
+                array_map(
+                    fn($item) => Parcel::fromJson((array)$item),
+                    [$results]
+                );
+        } catch (\Throwable $error) {
+            throw $error;
+        }
+    }
+
+    function saveParcelDetails(array $value): void
+    {
+        try {
+            $this->saveData($this->key, $value);
+        } catch (\Throwable $error) {
             throw $error;
         }
     }
