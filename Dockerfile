@@ -19,4 +19,5 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 0775 /var/www/html
 RUN sed -i -e "s/html/html\/public/g" /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
+RUN composer install
 WORKDIR /var/www/html

@@ -1,5 +1,8 @@
 {
-  "name": "root/html",
+  "name": "app/fastway",
+  "scripts": {
+    "test": "./vendor/bin/phpunit tests/"
+  },
   "autoload": {
     "classmap": [
       "src/"
