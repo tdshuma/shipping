@@ -5,6 +5,12 @@
 1. Docker
 
 #### Running
+Create file `.env` file
+```
+APP_ENV=dev
+API_SECRET_KEY=xxyyzz
+```
+
 `docker compose up --build`
 
 #### Testing
@@ -12,3 +18,4 @@
 2. `composer test`
 
 #### Documentation
+* [Wiki](https://github.com/tdshuma/shipping/wiki)

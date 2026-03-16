@@ -1,5 +1,5 @@
-app/vendor
-app/.env
-app/composer.lock
+vendor
+.env
+composer.lock
 
 .DS_Store
