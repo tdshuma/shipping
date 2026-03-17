@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Fastway\ParcelQuote\Dao\ParcelQuoteDao;
 use Fastway\ParcelQuote\Model\ParcelQuote;
+use Fastway\ParcelQuote\Model\ParcelQuoteRequest;
 use PHPUnit\Framework\TestCase;
 
 final class ParcelQuoteDaoTest extends TestCase
@@ -16,12 +17,14 @@ final class ParcelQuoteDaoTest extends TestCase
         $db = new SQLite3(':memory:');
         $db->exec('CREATE TABLE cache_storage(id INTEGER PRIMARY KEY AUTOINCREMENT, time VARCHAR(64), key VARCHAR(64), data TEXT);');
         $dao = new ParcelQuoteDao($db);
+        $request = new ParcelQuoteRequest('JNB', 'Pretoria', '0001', '30');
 
         try {
             $dao->saveParcelQuote(
+                $request,
                 $dataResponse->toJson()
             );
-            $results = $dao->getParcelQuote();
+            $results = $dao->getParcelQuote($request);
             $this->assertSame(
                 $dataResponse->pickfranchise,
                 $results->pickfranchise

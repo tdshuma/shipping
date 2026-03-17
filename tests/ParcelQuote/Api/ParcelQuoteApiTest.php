@@ -29,7 +29,10 @@ final class ParcelQuoteApiTest extends TestCase
         try {
             $results = $api->getParcelQuote(
                 new ParcelQuoteRequest(
-                    'test', 'test'
+                    'test',
+                    'test',
+                    'test',
+                    'test'
                 )
             );
             $data = (array)json_decode($response);

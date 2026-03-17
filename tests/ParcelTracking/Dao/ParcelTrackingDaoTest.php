@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Fastway\ParcelTracking\Dao\ParcelTrackingDao;
 use Fastway\ParcelTracking\Model\Parcel;
+use Fastway\ParcelTracking\Model\ParcelTrackingRequest;
 use PHPUnit\Framework\TestCase;
 
 final class ParcelTrackingDaoTest extends TestCase
@@ -16,12 +17,14 @@ final class ParcelTrackingDaoTest extends TestCase
         $db = new SQLite3(':memory:');
         $db->exec('CREATE TABLE cache_storage(id INTEGER PRIMARY KEY AUTOINCREMENT, time VARCHAR(64), key VARCHAR(64), data TEXT);');
         $dao = new ParcelTrackingDao($db);
+        $request = new ParcelTrackingRequest('test');
 
         try {
             $dao->saveParcelDetails(
+                $request,
                 $dataResponse->toJson()
             );
-            $results = $dao->getParcelDetails();
+            $results = $dao->getParcelDetails($request);
             $this->assertSame(
                 $dataResponse->labelNumber,
                 $results[0]->labelNumber

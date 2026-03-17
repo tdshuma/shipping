@@ -34,7 +34,10 @@ final class ParcelQuoteRepoTest extends TestCase
         try {
             $results = $repo->getParcelQuote(
                 new ParcelQuoteRequest(
-                    'test', 'test'
+                    'test',
+                    'test',
+                    'test',
+                    'test'
                 )
             );
             $this->assertSame(

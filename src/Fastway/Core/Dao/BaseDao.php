@@ -11,9 +11,9 @@ class BaseDao
 {
     public SQLite3 $db;
 
-    public function __construct()
+    public function __construct(?SQLite3 $db)
     {
-        $this->db = new SQLite3('../fastway.db');
+        $this->db = $db ?: new SQLite3('../fastway.db');
     }
 
     public function saveData(string $key, array $value): bool

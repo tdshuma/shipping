@@ -13,11 +13,11 @@ class BaseClient
     public string $apiKey;
     public Client $client;
 
-    public function __construct()
+    public function __construct(?Client $client)
     {
         $this->baseUrl = 'https://sa.api.fastway.org/';
         $this->apiKey = getenv('API_SECRET_KEY');
-        $this->client = new Client();
+        $this->client = $client ?: new Client();
     }
 
     public function httpGet(string $url): ResponseInterface

@@ -16,9 +16,9 @@
 <div id="contentHolder" class="d-none"></div>
 
 <template id="error">
-    <h1 class="display-5 fw-bold">Opps! An error has occured</h1>
+    <h1 class="display-5 fw-bold">Oops! An error has occured.</h1>
     <p class="col-md-8 fs-4 text-danger">{{message}}</p>
-    <p class="col-md-8 fs-4">Call 011 974 2845 for more info</p>
+    <p class="col-md-8 fs-4">For more information call 011 974 2845.</p>
 </template>
 
 <template id="parcelQuoteTemplate" class="d-none">
