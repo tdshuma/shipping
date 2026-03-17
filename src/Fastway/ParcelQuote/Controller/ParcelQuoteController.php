@@ -40,7 +40,8 @@ final class ParcelQuoteController
 
             return $response;
         } catch (\Exception $error) {
-            $response = new Response($error->getMessage(), 500);
+            $response = new Response(status: 500);
+            $response->getBody()->write(json_encode(['message' => $error->getMessage()]));
             return $response;
         }
     }

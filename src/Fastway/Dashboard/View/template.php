@@ -22,10 +22,13 @@
         <div class="col-md-6">
           <div class="h-100 p-5 text-bg-light rounded-3">
             <h2>Track and Trace a Parcel</h2>
-            <form>
+            <form id="parcel-quote-form" novalidate>
               <div class="mb-3">
                 <label for="trackingNumber" class="form-label">Tracking numbers</label>
-                <input type="text" class="form-control" id="trackingNumber">
+                <input type="text" class="form-control" id="trackingNumber" aria-describedby="trackingNumberValidationFeedback" required>
+                <div id="trackingNumberValidationFeedback" class="invalid-feedback">
+                  Please enter destination suburb.
+                </div>
               </div>
               <button type="button" class="btn btn-primary" onclick="getParcelTrackingDetails()">Submit</button>
             </form>
@@ -34,18 +37,27 @@
         <div class="col-md-6">
           <div class="h-100 p-5 bg-body-secondary rounded-3">
             <h2>Quote for Sending a Parcel</h2>
-            <form>
+            <form id="parcel-quote-form" novalidate>
               <div class="mb-3">
                 <label for="destinationSuburb" class="form-label">Destination suburb</label>
-                <input type="text" class="form-control" id="destinationSuburb">
+                <input type="text" class="form-control" id="destinationSuburb" aria-describedby="destinationSuburbValidationFeedback" required>
+                <div class="invalid-feedback" id="destinationSuburbValidationFeedback">
+                  Please enter destination suburb.
+                </div>
               </div>
               <div class="mb-3">
                 <label for="postalCode" class="form-label">Postal code</label>
-                <input type="text" class="form-control" id="postalCode">
+                <input type="number" class="form-control" id="postalCode" aria-describedby="postalCodeValidationFeedback" required>
+                <div class="invalid-feedback" id="postalCodeValidationFeedback">
+                  Please enter postal code.
+                </div>
               </div>
               <div class="mb-3">
                 <label for="parcelWeight" class="form-label">Parcel weight</label>
-                <input type="text" class="form-control" id="parcelWeight">
+                <input type="number" class="form-control" min="1" max="30" id="parcelWeight" aria-describedby="parcelWeightValidationFeedback" required>
+                <div class="invalid-feedback" id="parcelWeightValidationFeedback">
+                  Please enter parcel weight.
+                </div>
               </div>
               <button type="button" onclick="getParcelQuote()" class="btn btn-primary">Submit</button>
             </form>

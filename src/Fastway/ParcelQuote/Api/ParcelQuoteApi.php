@@ -19,10 +19,11 @@ class ParcelQuoteApi extends BaseClient
                     . '/' . $request->postal_code . '/' . $request->parcel_weight
             );
             $body = (array)json_decode($results->getBody()->getContents());
-            if(isset($body['error'])) {
+            if (isset($body['error'])) {
                 throw new Exception($body['error']);
+            } else {
+                return ParcelQuote::fromJson((array)$body['result']);
             }
-            return ParcelQuote::fromJson((array)$body['result']);
         } catch (\Throwable $error) {
             throw $error;
         }

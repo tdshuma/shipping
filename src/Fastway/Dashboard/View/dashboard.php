@@ -15,6 +15,11 @@
 
 <div id="contentHolder" class="d-none"></div>
 
+<template id="error">
+    <h1 class="display-5 fw-bold">Opps! An error has occured</h1>
+    <p class="col-md-8 fs-4 text-danger">{{message}}</p>
+</template>
+
 <template id="parcelQuoteTemplate" class="d-none">
     <h1 class="display-5 fw-bold">Quote for Sending a Parcel</h1>
     <p class="col-md-8 fs-4">{{ pickfranchise }} ({{pickfranchise_code}}) - TO - {{delfranchise}} ({{delfranchise_code}})</p>
@@ -122,44 +127,85 @@
     }
 
     async function getParcelTrackingDetails() {
-        isLoading(false);
-        const input = document.querySelector('#trackingNumber').value;
-        const data = await fetch('/api/parcel-tracking', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                trackingNumber: input
-            })
-        });
-        const results = await data.json();
-        isLoading(true);
-        const template = document.getElementById('parcelTrackingTemplate').innerHTML;
-        const rendered = Mustache.render(template, results[0]);
-        document.getElementById('contentHolder').innerHTML = rendered;
+        const input = document.querySelector('#trackingNumber');
+        if (input.value == '') {
+            input.classList.add('is-invalid');
+        } else {
+            input.classList.remove('is-invalid');
+            isLoading(false);
+            const data = await fetch('/api/parcel-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    trackingNumber: input.value
+                })
+            });
+            let results = await data.json();
+            isLoading(true);
+            let template = null;
+            if (Object.keys(results).indexOf('message') > -1) {
+                template = document.getElementById('error').innerHTML;
+            } else {
+                results = results[0];
+                template = document.getElementById('parcelTrackingTemplate').innerHTML;
+            }
+            document.getElementById('contentHolder').innerHTML = Mustache.render(template, results);
+        }
     }
 
     async function getParcelQuote() {
-        isLoading(false);
-        const destinationSuburb = document.querySelector('#destinationSuburb').value;
-        const postalCode = document.querySelector('#postalCode').value;
-        const parcelWeight = document.querySelector('#parcelWeight').value;
-        const data = await fetch('/api/parcel-quote', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                drop_off: destinationSuburb,
-                postal_code: postalCode,
-                parcel_weight: parcelWeight,
-            })
-        });
-        const results = await data.json();
-        isLoading(true);
-        const template = document.getElementById('parcelQuoteTemplate').innerHTML;
-        const rendered = Mustache.render(template, results);
-        document.getElementById('contentHolder').innerHTML = rendered;
+        const destinationSuburb = document.querySelector('#destinationSuburb');
+        const postalCode = document.querySelector('#postalCode');
+        const parcelWeight = document.querySelector('#parcelWeight');
+
+        let isValid = true;
+        if (destinationSuburb.value == '') {
+            destinationSuburb.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            destinationSuburb.classList.remove('is-invalid');
+        }
+
+        if (postalCode.value == '') {
+            postalCode.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            postalCode.classList.remove('is-invalid');
+        }
+
+        if (parcelWeight.value == '') {
+            parcelWeight.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            parcelWeight.classList.remove('is-invalid');
+        }
+
+        if (isValid) {
+            isLoading(false);
+            const data = await fetch('/api/parcel-quote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    drop_off: destinationSuburb.value,
+                    postal_code: postalCode.value,
+                    parcel_weight: parcelWeight.value,
+                })
+            });
+            const results = await data.json();
+            isLoading(true);
+            let template = null;
+            if (Object.keys(results).indexOf('message') > -1) {
+                template = document.getElementById('error').innerHTML;
+            } else {
+                results = results[0];
+                template = document.getElementById('parcelQuoteTemplate').innerHTML;
+            }
+            document.getElementById('contentHolder').innerHTML = Mustache.render(template, results);
+        }
+
     }
 </script>

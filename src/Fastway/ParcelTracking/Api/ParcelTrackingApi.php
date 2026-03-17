@@ -18,10 +18,11 @@ class ParcelTrackingApi extends BaseClient
                 $this->baseUrl . '/latest/tracktrace/massdetail/' . $request->parcelNumber
             );
             $body = (array)json_decode($results->getBody()->getContents());
-            if(isset($body['error'])) {
-                throw new Exception($body['error']);
+            if (isset($body['result'][0]->error)) {
+                throw new Exception($body['result'][0]->error);
+            } else {
+                return array_map(fn($item) => Parcel::fromJson((array)$item), (array)$body['result']);
             }
-            return array_map(fn($item) => Parcel::fromJson((array)$item), (array)$body['result']);
         } catch (\Throwable $error) {
             throw $error;
         }
