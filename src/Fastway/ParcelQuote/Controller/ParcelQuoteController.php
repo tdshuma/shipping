@@ -18,8 +18,8 @@ final class ParcelQuoteController
     {
         $body = (array)json_decode($request->getBody()->getContents());
         $repo = new ParcelQuoteRepo(
-            new ParcelQuoteApi,
-            new ParcelQuoteDao,
+            new ParcelQuoteApi(null),
+            new ParcelQuoteDao(null),
         );
 
         try {

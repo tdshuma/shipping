@@ -19,8 +19,8 @@ final class ParcelTrackingController
     {
         $body = (array)json_decode($request->getBody()->getContents());
         $repo = new ParcelTrackingRepo(
-            new ParcelTrackingApi,
-            new ParcelTrackingDao,
+            new ParcelTrackingApi(null),
+            new ParcelTrackingDao(null),
         );
 
         try {
