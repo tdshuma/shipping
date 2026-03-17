@@ -18,6 +18,7 @@
 <template id="error">
     <h1 class="display-5 fw-bold">Opps! An error has occured</h1>
     <p class="col-md-8 fs-4 text-danger">{{message}}</p>
+    <p class="col-md-8 fs-4">Call 011 974 2845 for more info</p>
 </template>
 
 <template id="parcelQuoteTemplate" class="d-none">
@@ -201,7 +202,6 @@
             if (Object.keys(results).indexOf('message') > -1) {
                 template = document.getElementById('error').innerHTML;
             } else {
-                results = results[0];
                 template = document.getElementById('parcelQuoteTemplate').innerHTML;
             }
             document.getElementById('contentHolder').innerHTML = Mustache.render(template, results);
