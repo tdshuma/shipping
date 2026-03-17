@@ -25,8 +25,10 @@ final class ParcelQuoteController
         try {
             $results = $repo->getParcelQuote(
                 new ParcelQuoteRequest(
-                    $body['pick_up'],
-                    $body['drop_off']
+                    'JNB', // $body['pick_up'],
+                    $body['drop_off'],
+                    $body['postal_code'],
+                    $body['parcel_weight'],
                 )
             );
             $response = new Response();
@@ -38,7 +40,7 @@ final class ParcelQuoteController
 
             return $response;
         } catch (\Exception $error) {
-            $response = new Response($error->getMessage(), 401);
+            $response = new Response($error->getMessage(), 500);
             return $response;
         }
     }

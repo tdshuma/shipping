@@ -16,7 +16,7 @@ class DashboardController
         $templates = new Engine(__DIR__ . '/../View');
         $response = new Response();
 
-        $response->getBody()->write($templates->render('dashboard', ['name' => 'David']));
+        $response->getBody()->write($templates->render('dashboard', ['name' => '.']));
         return $response;
     }
 }

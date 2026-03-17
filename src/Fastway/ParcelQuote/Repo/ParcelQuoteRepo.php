@@ -21,6 +21,7 @@ final class ParcelQuoteRepo
             try {
                 $results = $this->api->getParcelQuote($request);
                 $this->dao->saveParcelQuote(
+                    $request,
                     $results->toJson()
                 );
                 return $results;

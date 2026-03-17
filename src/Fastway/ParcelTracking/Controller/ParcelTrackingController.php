@@ -39,7 +39,7 @@ final class ParcelTrackingController
 
             return $response;
         } catch (\Exception $error) {
-            $response = new Response($error->getMessage(), 401);
+            $response = new Response($error->getMessage(), 500);
             return $response;
         }
     }

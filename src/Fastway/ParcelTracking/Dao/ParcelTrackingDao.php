@@ -15,7 +15,7 @@ class ParcelTrackingDao extends BaseDao
     function getParcelDetails(ParcelTrackingRequest $request): array
     {
         try {
-            $results = $this->getData($this->key . md5($request->parcelNumber));
+            $results = $this->getData($this->key . '_' . md5($request->parcelNumber));
             return
                 array_map(
                     fn($item) => Parcel::fromJson((array)$item),
@@ -29,7 +29,7 @@ class ParcelTrackingDao extends BaseDao
     function saveParcelDetails(ParcelTrackingRequest $request, array $value): void
     {
         try {
-            $this->saveData($this->key . md5($request->parcelNumber), $value);
+            $this->saveData($this->key . '_' . md5($request->parcelNumber), $value);
         } catch (\Throwable $error) {
             throw $error;
         }

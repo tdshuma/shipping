@@ -33,7 +33,7 @@ class BaseDao
             $results = $this->db->query("SELECT * FROM cache_storage WHERE key='{$key}' ORDER BY id DESC LIMIT 1;");
             $data = (array)$results->fetchAll();
             $data = count($data) >= 1 ? $data[0] : $data;
-            return (array)json_decode($data[3]);
+            return isset($data[3]) ? (array)json_decode($data[3]) : null;
         } catch (\Throwable $th) {
             throw $th;
         }
