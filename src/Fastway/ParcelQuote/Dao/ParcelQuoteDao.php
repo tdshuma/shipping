@@ -15,7 +15,7 @@ class ParcelQuoteDao extends BaseDao
     function getParcelQuote(ParcelQuoteRequest $request): ParcelQuote
     {
         try {
-            $results = $this->getData($this->key . '_' . md5($request->drop_off));
+            $results = $this->getData($this->key . '_' . md5($request->drop_off) . '_' . md5($request->postal_code) . '_' . md5($request->parcel_weight));
             return ParcelQuote::fromJson((array)$results);
         } catch (\Throwable $error) {
             throw $error;
@@ -25,7 +25,7 @@ class ParcelQuoteDao extends BaseDao
     function saveParcelQuote(ParcelQuoteRequest $request, array $value): void
     {
         try {
-            $this->saveData($this->key . '_' . md5($request->drop_off), $value);
+            $this->saveData($this->key . '_' . md5($request->drop_off) . '_' . md5($request->postal_code) . '_' . md5($request->parcel_weight), $value);
         } catch (\Throwable $error) {
             throw $error;
         }
