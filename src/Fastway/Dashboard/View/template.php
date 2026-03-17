@@ -53,10 +53,11 @@
         </div>
       </div>
       <footer class="pt-3 mt-4 text-body-secondary border-top">
-        &copy; 2025 </footer>
+        &copy; <?= date('Y') ?> </footer>
     </div>
   </main>
-
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/mustache.min.js"></script>
 </body>
 
 </html>

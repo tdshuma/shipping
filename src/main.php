@@ -6,6 +6,7 @@ namespace Fastway;
 
 use Fastway\Core\Model\Environment;
 use Fastway\Dashboard\Controller\DashboardController;
+use Fastway\Dashboard\Controller\ParcelTrackingAjaxController;
 use Fastway\ParcelQuote\Controller\ParcelQuoteController;
 use Fastway\ParcelTracking\Controller\ParcelTrackingController;
 use Laminas\Diactoros\ResponseFactory;
@@ -37,7 +38,7 @@ function main(Environment $environment): void
             break;
 
         case Environment::DEV:
-            $router->map('GET', '/', DashboardController::class)->setStrategy(new ApplicationStrategy);
+            $router->map('GET', '/', DashboardController::class);
             $router
                 ->group('/api', function ($router) {
                     $router->map('POST', '/parcel-tracking', ParcelTrackingController::class);

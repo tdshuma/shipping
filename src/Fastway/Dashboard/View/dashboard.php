@@ -13,157 +13,109 @@
     </div>
 </div>
 
-<div id="resultsParcelQuote" class="d-none">
+<div id="contentHolder" class="d-none"></div>
+
+<template id="parcelQuoteTemplate" class="d-none">
     <h1 class="display-5 fw-bold">Quote for Sending a Parcel</h1>
+    <p class="col-md-8 fs-4">{{ pickfranchise }} ({{pickfranchise_code}}) - TO - {{delfranchise}} ({{delfranchise_code}})</p>
+    <p class="col-md-8 fs-4">{{parcel_weight_kg}} KG</p>
+    <p class="col-md-8 fs-4">Pick franchise phone number {{pickfranchise_phone_number}}</p>
     <main>
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Free</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>10 users included</li>
-                            <li>2 GB of storage</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
-                        </ul> <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Pro</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>20 users included</li>
-                            <li>10 GB of storage</li>
-                            <li>Priority email support</li>
-                            <li>Help center access</li>
-                        </ul> <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+            {{#services}}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                            <h4 class="my-0 fw-normal">{{name}}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{currency_symbol}}{{totalprice_normal}}</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>{{baseweight}} Base weight</li>
+                                <li>{{weightlimit}} Weight limit</li>
+                                <li>R{{totalprice_frequent}} frequent price</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                    <div class="card-header py-3 text-bg-primary border-primary">
-                        <h4 class="my-0 fw-normal">Enterprise</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>30 users included</li>
-                            <li>15 GB of storage</li>
-                            <li>Phone and email support</li>
-                            <li>Help center access</li>
-                        </ul> <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-                    </div>
-                </div>
-            </div>
+            {{/services}}
         </div>
-        <h2 class="display-6 text-center mb-4">Compare plans</h2>
-        <div class="table-responsive">
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th style="width: 34%;"></th>
-                        <th style="width: 22%;">Free</th>
-                        <th style="width: 22%;">Pro</th>
-                        <th style="width: 22%;">Enterprise</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="text-start">Public</th>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Private</th>
-                        <td></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="text-start">Permissions</th>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Sharing</th>
-                        <td></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Unlimited members</th>
-                        <td></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Extra security</th>
-                        <td></td>
-                        <td></td>
-                        <td><svg class="bi" width="24" height="24" role="img" aria-label="Included">
-                                <use xlink:href="#check"></use>
-                            </svg></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            {{#cheapest_service}}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm border-success">
+                        <div class="card-header py-3 text-bg-success border-success">
+                            <h4 class="my-0 fw-normal">{{name}}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{currency_symbol}}{{totalprice_normal}}</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Cheapest service</li>
+                                <li>{{baseweight}} Base weight</li>
+                                <li>{{weightlimit}} Weight limit</li>
+                                <li>R{{totalprice_frequent}} frequent price</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {{/cheapest_service}}
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            {{#additional_services}}
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{name}}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{currency_symbol}}{{totalprice_normal}}</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>{{baseweight}} Base weight</li>
+                                <li>{{weightlimit}} Weight limit</li>
+                                <li>R{{totalprice_frequent}} frequent price</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {{/additional_services}}
         </div>
     </main>
+</template>
 
-</div>
-
-<div id="resultsParcelTracking" class="d-none">
+<template id="parcelTrackingTemplate" type="x-tmpl-mustache">
     <h1 class="display-5 fw-bold">Track and Trace a Parcel</h1>
-    <p class="col-md-8 fs-4">Welcome, Track and Trace a Parcel. Get a Quote for Sending a Parcel<?= $this->e($name) ?></p>
-</div>
+    <p class="col-md-8 fs-4">{{ PickupFranchise }} ({{PickupFranchiseCode}}) - TO - {{DeliveryFranchise}} ({{DeliveryFranchiseCode}})</p>
+    <p class="col-md-8 fs-4">{{LabelNumber}} ({{OriginalLabelNumber}})</p>
+    Delivery ETA {{DeliveryETADate}}
+    <div class="list-group">
+        {{#Scans}}
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{Name}} ({{Franchise}})</h5>
+                    <small>{{RealDateTime}}</small>
+                </div>
+                <p class="mb-1">{{StatusDescription}}</p>
+                <small>{{Description}} - {{Status}}</small>
+            </div>
+        {{/Scans}}
+    </div>
+</template>
 
 <script>
     function isLoading(isDone) {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
         if (isDone) {
             document.querySelector('#loading').classList.add('d-none');
+            document.querySelector('#contentHolder').classList.remove('d-none');
         } else {
-            const resultsParcelTracking = document.querySelector('#resultsParcelTracking');
-            const resultsParcelQuote = document.querySelector('#resultsParcelQuote');
+            const contentHolder = document.querySelector('#contentHolder');
             const welcome = document.querySelector('#welcome');
-            !resultsParcelTracking.classList.contains('d-none') ? resultsParcelTracking.classList.add('d-none') : null;
-            !resultsParcelQuote.classList.contains('d-none') ? resultsParcelQuote.classList.add('d-none') : null;
+            !contentHolder.classList.contains('d-none') ? contentHolder.classList.add('d-none') : null;
             !welcome.classList.contains('d-none') ? welcome.classList.add('d-none') : null;
             document.querySelector('#loading').classList.remove('d-none');
         }
@@ -183,8 +135,9 @@
         });
         const results = await data.json();
         isLoading(true);
-        document.querySelector('#resultsParcelTracking').classList.remove('d-none');
-        console.log(results);
+        const template = document.getElementById('parcelTrackingTemplate').innerHTML;
+        const rendered = Mustache.render(template, results[0]);
+        document.getElementById('contentHolder').innerHTML = rendered;
     }
 
     async function getParcelQuote() {
@@ -205,7 +158,8 @@
         });
         const results = await data.json();
         isLoading(true);
-        document.querySelector('#resultsParcelQuote').classList.remove('d-none');
-        console.log(results);
+        const template = document.getElementById('parcelQuoteTemplate').innerHTML;
+        const rendered = Mustache.render(template, results);
+        document.getElementById('contentHolder').innerHTML = rendered;
     }
 </script>
