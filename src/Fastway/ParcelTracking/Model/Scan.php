@@ -37,7 +37,7 @@ final class Scan
             CompanyInfo::fromJson((array)$json['CompanyInfo']),
             $json['UploadDate'],
             $json['Signature'],
-            $json['Parcelconnectagent'],
+            $json['ParcelConnectAgent'],
         );
     }
 

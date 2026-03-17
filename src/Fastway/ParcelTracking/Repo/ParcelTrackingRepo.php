@@ -25,6 +25,7 @@ final class ParcelTrackingRepo
             try {
                 $results = $this->api->getParcelDetails($request);
                 $this->dao->saveParcelDetails(
+                    $request,
                     array_map(
                         fn($item) => $item->toJson(),
                         $results

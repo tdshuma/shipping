@@ -36,6 +36,7 @@ final class Parcel
 
     public static function fromJson(array $json): Parcel
     {
+        $json = count($json) == 1 ? $json[0] : $json;
         return new Parcel(
             $json['PickupFranchise'],
             $json['PickupFranchiseCode'],

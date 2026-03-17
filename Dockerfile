@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 # Install Xdebug
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY ./ /var/www/html
@@ -19,6 +20,6 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 0775 /var/www/html
 RUN sed -i -e "s/html/html\/public/g" /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
-RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
-RUN composer dump-autoload
+# RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
+# RUN composer dump-autoload
 WORKDIR /var/www/html

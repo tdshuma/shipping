@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Fastway\Core\Api;
 
+use \GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 class BaseClient
 {
     public string $baseUrl;
     public string $apiKey;
+    public Client $client;
 
-    public function __construct(public \GuzzleHttp\Client $client)
+    public function __construct()
     {
         $this->baseUrl = 'https://sa.api.fastway.org/';
         $this->apiKey = getenv('API_SECRET_KEY');
+        $this->client = new Client();
     }
 
     public function httpGet(string $url): ResponseInterface

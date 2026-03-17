@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fastway\ParcelTracking\Controller;
 
+use Fastway\ParcelTracking\Api\ParcelTrackingApi;
+use Fastway\ParcelTracking\Dao\ParcelTrackingDao;
 use Fastway\ParcelTracking\Model\ParcelTrackingRequest;
 use Fastway\ParcelTracking\Repo\ParcelTrackingRepo;
 use Laminas\Diactoros\Response;
@@ -12,15 +14,18 @@ use Psr\Http\Message\ServerRequestInterface;
 
 final class ParcelTrackingController
 {
-    public function __construct(private ParcelTrackingRepo $repo) {}
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $body = $request->getParsedBody();
+        $body = (array)json_decode($request->getBody()->getContents());
+        $repo = new ParcelTrackingRepo(
+            new ParcelTrackingApi,
+            new ParcelTrackingDao,
+        );
 
         try {
-            $results = $this->repo->getParcelDetails(
-                new ParcelTrackingRequest($body['tackingNumber'])
+            $results = $repo->getParcelDetails(
+                new ParcelTrackingRequest($body['trackingNumber'])
             );
             $response = new Response();
             $response->getBody()->write(

@@ -2,3 +2,8 @@
 
 <h1>Dashboard</h1>
 <p>Hello, <?=$this->e($name)?></p>
+
+<script>
+
+    console.log('testing...');
+</script>

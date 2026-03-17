@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fastway\ParcelQuote\Controller;
 
+use Fastway\ParcelQuote\Api\ParcelQuoteApi;
+use Fastway\ParcelQuote\Dao\ParcelQuoteDao;
 use Fastway\ParcelQuote\Model\ParcelQuoteRequest;
 use Fastway\ParcelQuote\Repo\ParcelQuoteRepo;
 use Laminas\Diactoros\Response;
@@ -12,14 +14,16 @@ use Psr\Http\Message\ServerRequestInterface;
 
 final class ParcelQuoteController
 {
-    public function __construct(private ParcelQuoteRepo $repo) {}
-
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $body = $request->getParsedBody();
+        $body = (array)json_decode($request->getBody()->getContents());
+        $repo = new ParcelQuoteRepo(
+            new ParcelQuoteApi,
+            new ParcelQuoteDao,
+        );
 
         try {
-            $results = $this->repo->getParcelQuote(
+            $results = $repo->getParcelQuote(
                 new ParcelQuoteRequest(
                     $body['pick_up'],
                     $body['drop_off']
