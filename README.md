@@ -21,4 +21,4 @@ API_SECRET_KEY=xxyyzz
 * [Wiki](https://github.com/tdshuma/shipping/wiki)
 
 #### Demo
-* [Wiki](https://www.goldilocksgroup.co.za/fastway)
+* [Link](https://www.goldilocksgroup.co.za/fastway)
